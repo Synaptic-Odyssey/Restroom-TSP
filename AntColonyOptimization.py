@@ -26,9 +26,9 @@ class AntColonyOptimization:
             
             new_node = Node(x, y)
             self.nodes.append(new_node)
-            print(f"node_after : {new_node.get_x()}, {new_node.get_y()}")
+            #print(f"node_after : {new_node.get_x()}, {new_node.get_y()}")
         
-        print(f" node number : {len(self.nodes)}")
+        #print(f" node number : {len(self.nodes)}")
             
         self.ants = []
         for _ in range(num_ants):

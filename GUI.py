@@ -140,6 +140,9 @@ height = 600
 start_node = Node(30, 30)
 generations = 4
 
+#bug
+#>4 generations the value of weights will not be greater than zero
+#This has nothing to do with distance
 colony = AntColonyOptimization(num_ants, num_nodes, start_node, generations, length, height)
 gui = GUI(colony)
 gui.run()
