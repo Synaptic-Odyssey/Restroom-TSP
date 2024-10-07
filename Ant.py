@@ -34,21 +34,27 @@ class Ant:
         #     print(f"nodes not visited: {on_node.get_x()}, {on_node.get_y()}")
         
         #this is not supposed to go from one node to the next; it is current node to all nodes
-        on_node = self.node    
+        on_node = self.node
+        total_weight = 0
+    
         for after_node in self.nodes_not_visited:
             # print(f"current node: {on_node.get_x()}, {on_node.get_y()}")
             # print(f"next node: {after_node.get_x()}, {after_node.get_y()}")
             distance = on_node.find_distance(after_node)
             
-            if distance == 0:
+            if distance < 0.00000001:
                 print("Warning: Distance is zero. Skipping this node.")
-                weights.append(0)
+                weights.append(1)
                 continue
             
             #print(f"just to make sure it's not zero: {on_node.find_distance(after_node)}")
-            weight = (on_node.get_pheromone()**Ant.pheromone_weight)/(on_node.find_distance(after_node)**Ant.distance_weight)
+            weight = (after_node.get_pheromone()**Ant.pheromone_weight)/(on_node.find_distance(after_node)**Ant.distance_weight)
+            #print(f"weight: {weight}")
             weights.append(weight)
-            
+            total_weight += weight
+
+    
+        #print(f"total_weight: {total_weight}")
         #parameters: population, weights
         # print(f"len nodes: {len(self.nodes_not_visited)}")
         # print(f"len weights: {len(weights)}")

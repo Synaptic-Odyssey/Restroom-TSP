@@ -4,8 +4,8 @@ import random
 
 class AntColonyOptimization:
 
-    pheromone_evaporation = 2
-    pheromone_deposit = 100
+    pheromone_evaporation = 1.1
+    pheromone_deposit = 10000
     
     def __init__ (self, num_ants, num_nodes, start_node, generations, length, height):
         self.num_ants = num_ants
@@ -54,6 +54,10 @@ class AntColonyOptimization:
         for node in self.nodes:
             node.evaporate(AntColonyOptimization.pheromone_evaporation)
         
+        #Debugging, have established that these values are consistent
+        # print(f"evapo: {AntColonyOptimization.pheromone_evaporation}")
+        # print(f"deposit: {AntColonyOptimization.pheromone_deposit}")
+        
         for pheromone_trail in self.pheromone_trails:
             total_distance = 0
             prev_node = self.start_node
@@ -63,5 +67,5 @@ class AntColonyOptimization:
                 prev_node = node
             
             for node in pheromone_trail:
-                node.update_pheromone(1/total_distance*AntColonyOptimization.pheromone_deposit)    
+                node.update_pheromone((1/(total_distance**2))*AntColonyOptimization.pheromone_deposit)    
         

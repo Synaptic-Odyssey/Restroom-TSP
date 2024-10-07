@@ -8,7 +8,7 @@ class Node:
         self.pheromone_level = 1.0
         
     def update_pheromone(self, increase):
-        self.pheromone_level *= increase
+        self.pheromone_level = self.pheromone_level*increase
         
     def get_pheromone(self):
         return self.pheromone_level
