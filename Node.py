@@ -29,7 +29,9 @@ class Node:
         return self.y
     
     def find_distance(self, other_node):
+        # if self is other_node:
+        #     print("Warning: self and other_node are the same!")
         #print(f"distance: {math.sqrt(pow((other_node.get_x()-self.x),2) + pow((other_node.get_y()-self.y),2))}")
-        print(f"this node x: {self.get_x()}")
-        print(f"other node x: {other_node.get_x()}")
+        # print(f"this node x: {self.get_x()}")
+        # print(f"other node x: {other_node.get_x()}")
         return math.sqrt(pow((other_node.get_x()-self.x),2) + pow((other_node.get_y()-self.y),2))

@@ -16,7 +16,7 @@ class AntColonyOptimization:
         self.height = height
         
         #initialize a set of random nodes
-        self.nodes = [self.start_node]
+        self.nodes = []
         for _ in range(self.num_nodes):
             x = random.uniform(0, self.length)
             y = random.uniform(0, self.height)

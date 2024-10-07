@@ -30,19 +30,29 @@ class Ant:
     #There will be a factor of randomness
     def calculate_next_node(self):
         weights = []
-        current_node = self.node
         for on_node in self.nodes_not_visited:
             print(f"nodes not visited: {on_node.get_x()}, {on_node.get_y()}")
+        
+        #this is not supposed to go from one node to the next; it is current node to all nodes
+        on_node = self.node    
+        for after_node in self.nodes_not_visited:
+            # print(f"current node: {on_node.get_x()}, {on_node.get_y()}")
+            # print(f"next node: {after_node.get_x()}, {after_node.get_y()}")
+            distance = on_node.find_distance(after_node)
             
-        for i in range(len(self.nodes_not_visited)):
-            on_node = self.nodes_not_visited[i]
-            print(f"current node: {current_node.get_x()}, {current_node.get_y()}")
-            print(f"next node: {on_node.get_x()}, {on_node.get_y()}")
+            if distance == 0:
+                print("Warning: Distance is zero. Skipping this node.")
+                weights.append(0)
+                continue
             
-            weight = (on_node.get_pheromone()**Ant.pheromone_weight)/(current_node.find_distance(on_node)**Ant.distance_weight)
+            #print(f"just to make sure it's not zero: {on_node.find_distance(after_node)}")
+            weight = (on_node.get_pheromone()**Ant.pheromone_weight)/(on_node.find_distance(after_node)**Ant.distance_weight)
             weights.append(weight)
             
         #parameters: population, weights
+        # print(f"len nodes: {len(self.nodes_not_visited)}")
+        # print(f"len weights: {len(weights)}")
+        
         next_node = random.choices(self.nodes_not_visited, weights)[0]
         return next_node
         
@@ -52,4 +62,4 @@ class Ant:
     def reset(self):
         self.node = self.start_node
         self.pheromone_trail = [self.node]
-        self.nodes_not_visited = self.nodes[:]
+        self.nodes_not_visited = copy.deepcopy(self.nodes)
