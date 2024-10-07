@@ -30,8 +30,8 @@ class Ant:
     #There will be a factor of randomness
     def calculate_next_node(self):
         weights = []
-        for on_node in self.nodes_not_visited:
-            print(f"nodes not visited: {on_node.get_x()}, {on_node.get_y()}")
+        # for on_node in self.nodes_not_visited:
+        #     print(f"nodes not visited: {on_node.get_x()}, {on_node.get_y()}")
         
         #this is not supposed to go from one node to the next; it is current node to all nodes
         on_node = self.node    
