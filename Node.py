@@ -3,9 +3,9 @@ import math
 class Node:
     
     def __init__ (self, x, y):
-        self.x = x;
-        self.y = y;
-        self.pheromone_level = 1.0;
+        self.x = x
+        self.y = y
+        self.pheromone_level = 1.0
         
     def update_pheromone(self, increase):
         self.pheromone_level *= increase
@@ -19,14 +19,17 @@ class Node:
         else:
             self.pheromone_level = 1.0
             
-    def get_weigth(self):
+    def get_weight(self):
         return self.weight
     
-    def get_x (self):
+    def get_x(self):
         return self.x
     
     def get_y(self):
-        return self.x
+        return self.y
     
     def find_distance(self, other_node):
+        #print(f"distance: {math.sqrt(pow((other_node.get_x()-self.x),2) + pow((other_node.get_y()-self.y),2))}")
+        print(f"this node x: {self.get_x()}")
+        print(f"other node x: {other_node.get_x()}")
         return math.sqrt(pow((other_node.get_x()-self.x),2) + pow((other_node.get_y()-self.y),2))

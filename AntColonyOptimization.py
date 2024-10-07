@@ -1,5 +1,5 @@
-import Ant
-import Node
+from Ant import Ant
+from Node import Node
 import random
 
 class AntColonyOptimization:
@@ -16,11 +16,19 @@ class AntColonyOptimization:
         self.height = height
         
         #initialize a set of random nodes
-        self.nodes = []
-        for _ in range(num_nodes):
-            x = random.randint(0, length)
-            y = random.randint(0, height)
-            self.nodes.append(Node(x, y))
+        self.nodes = [self.start_node]
+        for _ in range(self.num_nodes):
+            x = random.uniform(0, self.length)
+            y = random.uniform(0, self.height)
+            # x = random.randint(0, self.length)
+            # y = random.randint(0, self.height)
+            #print(f"node_before : {x}, {y}")
+            
+            new_node = Node(x, y)
+            self.nodes.append(new_node)
+            print(f"node_after : {new_node.get_x()}, {new_node.get_y()}")
+        
+        print(f" node number : {len(self.nodes)}")
             
         self.ants = []
         for _ in range(num_ants):
@@ -28,7 +36,7 @@ class AntColonyOptimization:
             
     def simulate(self):
         for gen in range(self.generations):
-            print(f"generation: {gen}")
+            # print(f"generation: {gen}")
             
             self.pheromone_trails = []
             for ant in self.ants:
@@ -55,5 +63,5 @@ class AntColonyOptimization:
                 prev_node = node
             
             for node in pheromone_trail:
-                node.update_pheromone(1/(total_distance)*AntColonyOptimization.pheromone_deposit)    
+                node.update_pheromone(1/total_distance*AntColonyOptimization.pheromone_deposit)    
         
