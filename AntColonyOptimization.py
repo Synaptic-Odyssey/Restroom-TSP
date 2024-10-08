@@ -4,8 +4,8 @@ import random
 
 class AntColonyOptimization:
 
-    pheromone_evaporation = 0.8
-    pheromone_deposit = 1000000000
+    pheromone_evaporation = 0.6
+    pheromone_deposit = 100000000
     
     def __init__ (self, num_ants, num_nodes, start_node, generations, length, height):
         self.num_ants = num_ants
@@ -20,15 +20,9 @@ class AntColonyOptimization:
         for i in range(self.num_nodes):
             x = random.uniform(0, self.length)
             y = random.uniform(0, self.height)
-            # x = random.randint(0, self.length)
-            # y = random.randint(0, self.height)
-            #print(f"node_before : {x}, {y}")
             
             new_node = Node(x, y, i)
-            self.nodes.append(new_node)
-            #print(f"node_after : {new_node.get_x()}, {new_node.get_y()}")
-        
-        #print(f" node number : {len(self.nodes)}")
+            self.nodes.append(new_node)    
             
         self.ants = []
         for _ in range(num_ants):
@@ -54,10 +48,6 @@ class AntColonyOptimization:
         for node in self.nodes:
             node.evaporate(AntColonyOptimization.pheromone_evaporation)
         
-        #Debugging, have established that these values are consistent
-        # print(f"evapo: {AntColonyOptimization.pheromone_evaporation}")
-        # print(f"deposit: {AntColonyOptimization.pheromone_deposit}")
-        
         for pheromone_trail in self.colony_pheromone_trails:
             total_distance = 0
             prev_node = self.start_node
@@ -66,11 +56,9 @@ class AntColonyOptimization:
                 total_distance += node.find_distance(prev_node)
                 prev_node = node
             
-            #THE ISSUE IS HERE, THE UPDATE IS CHANGING THE COPY OF THE CENTRAL NODES IN THE PHEROMONE TRAILS
-            #INSTEAD OF THE ACTUAL NODES
+
             for node in pheromone_trail:
-                #Note that total_distance is around 5k
+                #Note that total_distance is usually around 5k
                 #print(f"total_distance: {total_distance}")
                 #print(f"x: {node.get_x()}, y: {node.get_y()}, updated_pheromone: {(1/(total_distance**2))*AntColonyOptimization.pheromone_deposit}")
                 node.update_pheromone(((1/(total_distance**2))*AntColonyOptimization.pheromone_deposit)**2)    
-        

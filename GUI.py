@@ -65,10 +65,18 @@ class GUI:
 
                 self.generations_completed += 1
 
-                # After final generation, calculate shortest path
+                # After the final generation, calculate shortest path
                 if self.generations_completed == self.colony.generations:
                     self.shortest_path = self.get_shortest_path()
-                    #print("Shortest path:", self.shortest_path)
+                    # Print the total distance and coordinates of the shortest path
+                    total_distance = 0
+                    prev_node = self.colony.start_node
+                    print("Final shortest path coordinates:")
+                    for node in self.shortest_path:
+                        total_distance += prev_node.find_distance(node)
+                        print(f"Node at ({node.get_x()}, {node.get_y()})")
+                        prev_node = node
+                    print(f"Total distance of the shortest path: {total_distance}")
 
             else:
                 if self.draw_enabled:
@@ -78,7 +86,7 @@ class GUI:
                     self.draw_pheromone_trails()
                     pygame.display.flip()
 
-            self.clock.tick(10)  # Slow down frame rate for smoother visualization
+            self.clock.tick(10) 
 
     def get_shortest_path(self):
         shortest_path = None
@@ -97,22 +105,14 @@ class GUI:
 
         return shortest_path
 
-
-# Example of how to run it:
-num_ants = 8
+num_ants = 10
 num_nodes = 20
 length = 800
 height = 600
 start_node = Node(30, 30, num_nodes + 1)
-generations = 20
+generations = 30
 
 colony = AntColonyOptimization(num_ants, num_nodes, start_node, generations, length, height)
 
 gui = GUI(colony, draw_enabled=True)
 gui.run()
-
-#key issue of optimization
-#p_level is not updating
-#I've made sure the input shouldn't be wrong
-#It could be the method
-#Or I have a deep copy of the nodes/each ant is updating the pheromones of a different node array
