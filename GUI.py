@@ -33,7 +33,7 @@ class GUI:
 
     def draw_pheromone_trails(self):
         if self.generations_completed < self.colony.generations - 1:
-            for ant_index, trail in enumerate(self.colony.pheromone_trails):
+            for ant_index, trail in enumerate(self.colony.colony_pheromone_trails):
                 for i in range(len(trail) - 1):
                     start_pos = (trail[i].get_x(), trail[i].get_y())
                     end_pos = (trail[i + 1].get_x(), trail[i + 1].get_y())
@@ -84,7 +84,7 @@ class GUI:
         shortest_path = None
         shortest_distance = float('inf')
 
-        for ant in self.colony.pheromone_trails:
+        for ant in self.colony.colony_pheromone_trails:
             total_distance = 0
             prev_node = self.colony.start_node
             for node in ant:
@@ -99,14 +99,20 @@ class GUI:
 
 
 # Example of how to run it:
-num_ants = 30
-num_nodes = 30
+num_ants = 8
+num_nodes = 20
 length = 800
 height = 600
-start_node = Node(30, 30)
-generations = 10
+start_node = Node(30, 30, num_nodes + 1)
+generations = 20
 
 colony = AntColonyOptimization(num_ants, num_nodes, start_node, generations, length, height)
 
 gui = GUI(colony, draw_enabled=True)
 gui.run()
+
+#key issue of optimization
+#p_level is not updating
+#I've made sure the input shouldn't be wrong
+#It could be the method
+#Or I have a deep copy of the nodes/each ant is updating the pheromones of a different node array
