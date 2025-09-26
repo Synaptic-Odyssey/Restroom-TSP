@@ -1,1 +1,1 @@
-# Restroom-TSP
+A nature-inspired algorithm that mimics how real ants find the shortest paths by laying and following pheromone trails, using this collective behavior to solve complex optimization problems.
